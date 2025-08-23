@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { log } from "console";
 import mongoose from "mongoose";
 
 type ConnectionObject = {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Html,
   Head,
@@ -8,7 +7,7 @@ import {
   Row,
   Section,
   Text,
-  Button,
+  // Button,
 } from '@react-email/components';
 
 interface VerificationEmailProps {
