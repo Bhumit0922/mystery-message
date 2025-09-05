@@ -81,6 +81,21 @@ const page = () => {
     fetchAcceptMessage();
   }, [session, setValue, fetchAcceptMessage, fetchMessages]);
 
+  // get profileUrl for the user
+  const username = session?.user?.username;
+  const baseUrl = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}` : "";
+  const profileUrl = username ? `${baseUrl}/u/${username}` : "";
+
+  // copy profileUrl to clipboard
+  const copyToClipboard = () => {
+    if (profileUrl) {
+      navigator.clipboard.writeText(profileUrl);
+      toast.message("URL copied");
+    } else {
+      toast.error("No profile URL to copy");
+    }
+  };
+
   // handle switch change
   const handleSwitchChange = async () => {
     try {
@@ -96,15 +111,6 @@ const page = () => {
         axiosError.response?.data.message || "failed to fetch message settings"
       );
     }
-
-    const { username } = session?.user as User;
-    const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    const profileUrl = `${baseUrl}/u/${username}`;
-
-    const copyToClipboard = () => {
-      navigator.clipboard.writeText(profileUrl);
-      toast.message("URL copied");
-    };
 
     if (!session || !session.user) {
       return <div>Please login</div>;
@@ -159,7 +165,7 @@ const page = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={String(message._id)}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />
