@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React from "react";
 import {
@@ -33,13 +34,13 @@ type MessageCardProps = {
   onMessageDelete: (messageId: string) => void;
 };
 
-const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
+export function MessageCard ({ message, onMessageDelete }: MessageCardProps) {
   const handleDeleteConfirm = async () => {
     const response = await axios.delete<ApiResponse>(
       `/api/delete-message/${message._id}`
     );
     toast.message(response.data.message);
-    onMessageDelete(message._id);
+    onMessageDelete(String(message._id));
   };
   return (
     <Card>
